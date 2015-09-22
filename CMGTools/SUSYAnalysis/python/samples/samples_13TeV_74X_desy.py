@@ -8,8 +8,24 @@ kreator = ComponentCreator()
 
 ### ----------------------------- 25 ns ----------------------------------------
 # TTbar cross section: NNLO, https://twiki.cern.ch/twiki/bin/view/LHCPhysics/TtbarNNLO (172.5)
+
+TTJets = kreator.makeMCComponentFromDESY("TTJets", "/TTJets_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", 831.76)
 TTJets_LO_25ns = kreator.makeMCComponentFromDESY("TTJets_LO_25ns", "/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM", "CMS", ".*root", 831.76)
-TTs = [ TTJets_LO_25ns ]
+TT_pow = kreator.makeMCComponentFromDESY("TTLep_pow", "/TT_TuneCUETP8M1_13TeV-powheg-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v2/MINIAODSIM", "CMS", ".*root", 831.76)
+TTLep_pow = kreator.makeMCComponentFromDESY("TTLep_pow", "/TTTo2L2Nu_13TeV-powheg/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", 831.76*((3*0.108)**2))
+
+TTs = [ TTJets, TTJets_LO_25ns, TT_pow, TTLep_pow ]
+
+# TTbar HT bins:
+TTJets_HT-600to800 = kreator.makeMCComponentFromDesy("TTJets_HT-600to800", "/TTJets_HT-600to800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", 1.61*1.655 )
+TTJets_HT-800to1200 = kreator.makeMCComponentFromDesy("TTJets_HT-800to1200", "/TTJets_HT-800to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", .663*1.655 )
+TTJets_HT-1200to2500 = kreator.makeMCComponentFromDesy("TTJets_HT-1200to2500", "/TTJets_HT-1200to2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", .12*1.655 )
+TTJets_HT-2500toInf = kreator.makeMCComponentFromDesy("TTJets_HT-2500toInf", "/TTJets_HT-2500toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", .00143*1.655 )
+
+TTJetsHT = [ TTJets_HT-600to800, TTJets_HT-800to1200, TTJets_HT-1200to2500, TTJets_HT-2500toInf ]
+
+
+
 
 ### V+jets inclusive (from https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV)
 WJetsToLNu = kreator.makeMCComponentFromDESY("WJetsToLNu","/WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM", "CMS", ".*root", 3* 20508.9)
